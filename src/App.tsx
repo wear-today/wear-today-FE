@@ -1,5 +1,7 @@
 import './App.css';
 import Header from './components/Header';
+import { db } from './firebase';
+import { auth } from './firebase';
 
 function App() {
   return (
