@@ -1,15 +1,13 @@
 import { db } from "../firebase";
 import { addDoc, collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 
-type Data = {
-    data:{
-        createAt?: { nanoseconds: number; seconds: number};
+export type Data = {
         name: string;
         region: string;
         text: string;
         postId: number;
     }
-}
+
 
 //GET
 export async function fetchCommentData() {
@@ -17,7 +15,7 @@ export async function fetchCommentData() {
     return comment;
 }
 //POST
-export async function fetchPostComment({data}:Data ) {
+export async function fetchPostComment(data:Data) {
     const req = await addDoc(collection(db, "comment"), {data})
     return req
 }
