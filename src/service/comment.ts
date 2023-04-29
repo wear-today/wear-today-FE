@@ -1,7 +1,8 @@
+import { getDatabase, ref, child, get  } from "firebase/database";
 import { db } from "../firebase";
-import { addDoc, collection, deleteDoc, doc, getDocs } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDocs, onSnapshot, query } from "firebase/firestore";
 
-export type Data = {
+export type comment = {
         name: string;
         region: string;
         text: string;
@@ -11,12 +12,14 @@ export type Data = {
 
 //GET
 export async function fetchCommentData() {
-    const comment = await getDocs(collection(db, "comments")).then((res)=> res.forEach((doc)=> {console.log(doc.data())}))
-    return comment;
+    const queryget =  query(collection(db, "comments"));
+    onSnapshot(queryget, (snapshot)=> {
+      return  snapshot.docs.map(doc=>({...doc.data()}))
+    })
 }
 //POST
-export async function fetchPostComment(data:Data) {
-    const req = await addDoc(collection(db, "comment"), {data})
+export async function fetchPostComment(data:comment) {
+    const req = await addDoc(collection(db, "comments"), {data})
     return req
 }
 

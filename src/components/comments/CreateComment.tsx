@@ -41,7 +41,7 @@ const CreateComments = () => {
       <input
         placeholder="오늘의 날씨는 어떤가요?"
         type="text"
-        onChange={handleInputValue('comment')}
+        onChange={handleInputValue('text')}
       />
       <button onClick={handleSendComment}>작성</button>
     </form>
