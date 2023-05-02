@@ -1,6 +1,8 @@
 import './App.css';
 import Header from './components/Header';
 
+//로그인 / 회원가입 복구 필요 
+
 function App() {
   return (
     <>
