@@ -5,6 +5,8 @@ import CreateComments from './components/comments/CreateComment';
 import { db } from './firebase';
 import { auth } from './firebase';
 
+//로그인 / 회원가입 복구 필요 
+
 function App() {
   return (
     <>
