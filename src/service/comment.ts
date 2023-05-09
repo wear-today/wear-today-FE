@@ -2,7 +2,7 @@ import { getDatabase, ref, child, get  } from "firebase/database";
 import { db } from "../firebase";
 import { addDoc, collection, deleteDoc, doc, getDocs, onSnapshot, query } from "firebase/firestore";
 
-export type comment = {
+export type CommentForm = {
         name: string;
         region: string;
         text: string;
