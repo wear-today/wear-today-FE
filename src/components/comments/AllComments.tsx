@@ -22,7 +22,7 @@ function AllComment() {
     fetchComment();
   }, []);
   return (
-    <ul className="flex flex-col w-full pl-20 mt-4 gap-2">
+    <ul className="flex flex-col w-full pl-8 mt-4 gap-3">
       {loading ? (
         <Spinner />
       ) : (

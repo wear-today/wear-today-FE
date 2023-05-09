@@ -26,7 +26,7 @@ const CreateComments = () => {
   };
   return (
     <form
-      className="flex flex-row gap-2 w-full p-2"
+      className="flex flex-row gap-2 w-full p-2 mt-4"
       onSubmit={(e) => e.preventDefault()}
     >
       <select

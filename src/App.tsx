@@ -10,7 +10,7 @@ import { auth } from './firebase';
 
 function App() {
   return (
-    <main className="bg-neutral-200 h-screen w-[30rem]">
+    <main className="bg-blue-50 h-screen w-[30rem]">
       <Header />
       <section>
         <AllComment />
