@@ -7,11 +7,9 @@ function WeatherData() {
     const today = new Date();
       const lat = position&&position.coords.latitude;
     const lon = position&&position.coords.longitude;
-        console.log(lat,'lat')
     const base_date = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate()-1;
     const base_time = today.getHours() < 2 ? '23' : '05';
-  console.log(base_date,'bd')
-  console.log(base_time,'bd')
+
     const apikey = import.meta.env.VITE_WEATHER_API_KEY;
     //const url = `http://apis.data.go.kr/1360000/AsosHourlyInfoService/getWthrDataList?serviceKey=${apikey}&numOfRows=10&pageNo=1&dataCd=ASOS&dateCd=HR&stnIds=108&endDt=20200310&endHh=01&startHh=01&startDt=20190120`;
     const url = `https://apis.data.go.kr/1360000/AsosHourlyInfoService/getWthrDataList?serviceKey=${apikey}&pageNo=1&numOfRows=10&dataType=json&dataCd=ASOS&dateCd=HR&startDt=${base_date}&startHh=${base_time}&endDt=${base_date}&endHh=${base_time}&stnIds=108`
@@ -19,9 +17,7 @@ function WeatherData() {
     try {
       const response = await axios.get(url);
       const data = response.data;
-      //const realdata = JSON.parse(data)
       console.log(data, 'data');
-      //console.log(realdata, 'realdata');
     } catch (error) {
       console.error(error);
     }

@@ -3,6 +3,7 @@ import { db } from "../firebase";
 import { addDoc, collection, deleteDoc, doc, getDocs, onSnapshot, query } from "firebase/firestore";
 
 export type CommentForm = {
+        id : number;
         name: string;
         region: string;
         text: string;
@@ -14,7 +15,7 @@ export type CommentForm = {
 export async function fetchCommentData() {
     const queryget =  query(collection(db, "comments"));
     onSnapshot(queryget, (snapshot)=> {
-      return  snapshot.docs.map(doc=>({...doc.data()}))
+      return  snapshot.docs.map(doc=>({id: doc.id,...doc.data()}))
     })
 }
 //POST

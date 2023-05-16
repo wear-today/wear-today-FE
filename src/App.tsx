@@ -1,17 +1,13 @@
 import './App.css'
-import {useState, useEffect, useRef} from 'react';
+import {useState, useEffect} from 'react';
 import Approuter from "./Approuter";
 import { updateProfile } from "@firebase/auth";
-import { auth, db } from "./firebase";
-import { onSnapshot,collection,query} from "firebase/firestore"
+import { auth } from "./firebase";
 
 
 function App() {
   const [init, setInit] = useState(false)
   const [userdata, setUserdata] = useState(null)
-  const [memo, setMemo] = useState()
-  const [memos, setMemos] = useState()
-  const { current: mymemo } = useRef(memo);
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if(user){

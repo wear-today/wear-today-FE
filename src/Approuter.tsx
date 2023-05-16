@@ -1,7 +1,6 @@
 
 import { BrowserRouter, Routes, Route} from "react-router-dom";
 import Main from './components/Main';
-import Header from './components/Header';
 import Login from './components/Login';
 import Join from './components/Join';
 const Approuter =  ({ isLoggedIn, userdata}) => {

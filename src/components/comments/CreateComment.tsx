@@ -1,12 +1,13 @@
 import { useCallback, useState } from 'react';
 import { CommentForm, fetchPostComment } from '../../service/comment';
 
-const CreateComments = () => {
+const CreateComments = ({userdata}) => {
+  console.log(userdata,'dd')
   const [comment, setComment] = useState<CommentForm>({
-    name: '',
-    region: '',
+    name: userdata&&userdata.displayName,
+    region: '서울',
     text: '',
-    postId: 3,
+    postId: userdata&&userdata.uid,
   });
 
   const handleInputValue = useCallback(
@@ -20,6 +21,7 @@ const CreateComments = () => {
       },
     [comment],
   );
+  console.log(comment,'comment')
 
   const handleSendComment = () => {
     fetchPostComment(comment).then((res) => console.log(res));
@@ -33,8 +35,9 @@ const CreateComments = () => {
         className="rounded-md h-8"
         onChange={handleInputValue('region')}
         required
+        defaultValue='서울'
       >
-        <option selected>서울</option>
+        <option>서울</option>
         <option>경기</option>
         <option>강원</option>
         <option>충북</option>
