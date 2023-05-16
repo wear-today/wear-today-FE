@@ -17,6 +17,7 @@ const Searchbox = ({comments,setComments}) => {
     }
   return (
     <>
+    
         <input
           type="text"
           onChange={handleInputChange}
