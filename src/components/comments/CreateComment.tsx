@@ -3,14 +3,19 @@ import { fetchPostComment } from '../../service/comment';
 import { CommentForm } from '../../types/comment';
 import { User } from '../../types/user';
 
-const CreateComments = ({ userdata }: { userdata: User }) => {
-  const [comment, setComment] = useState<CommentForm>({
-    id: '',
+type Props = {
+  userdata: User;
+  fetchComment: any;
+};
+
+const CreateComments = ({ userdata, fetchComment }: Props) => {
+  const DEFAULT_COMMENT = {
     name: userdata && userdata.displayName,
     region: '서울',
     text: '',
     postId: userdata && userdata.uid,
-  });
+  };
+  const [input, setInput] = useState<CommentForm>(DEFAULT_COMMENT);
 
   const handleInputValue = useCallback(
     (key: string) =>
@@ -19,13 +24,15 @@ const CreateComments = ({ userdata }: { userdata: User }) => {
           | React.ChangeEvent<HTMLInputElement>
           | React.ChangeEvent<HTMLSelectElement>,
       ) => {
-        setComment({ ...comment, [key]: e.target.value });
+        setInput({ ...input, [key]: e.target.value });
       },
-    [comment],
+    [input],
   );
 
   const handleSendComment = () => {
-    fetchPostComment(comment).then((res) => console.log(res));
+    fetchPostComment(input);
+    setInput(DEFAULT_COMMENT);
+    fetchComment();
   };
 
   return (
@@ -55,6 +62,7 @@ const CreateComments = ({ userdata }: { userdata: User }) => {
         placeholder="오늘의 날씨는 어떤가요?"
         type="text"
         onChange={handleInputValue('text')}
+        value={input.text}
         required
       />
       <button className="w-14 h-8 text-sm p-0" onClick={handleSendComment}>

@@ -9,9 +9,10 @@ import { MdCancelPresentation } from 'react-icons/md';
 type Props = {
   comment: CommentForm;
   userdata: User;
+  fetchComment: any;
 };
 
-function Comments({ comment, userdata }: Props) {
+function Comment({ comment, userdata, fetchComment }: Props) {
   const { name, postId, region, text, id, collectionId } = comment;
 
   const [editMode, setEditMode] = useState<boolean>(false);
@@ -20,16 +21,19 @@ function Comments({ comment, userdata }: Props) {
   const inputHandler = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setNewText(e.target.value);
   }, []);
-  console.log(newText);
+
   const deleteHandler = async (collectionId: string) => {
     if (confirm('해당 글을 삭제하시겠습니까?')) {
-      fetchDeleteComment(collectionId);
+      fetchDeleteComment(collectionId).then(() => fetchComment());
     }
   };
 
-  // const putHandler = async() =>{
-  //   fetchPutComment(collectionId, text)
-  // }
+  const putHandler = async (collectionId: string, newText: string) => {
+    fetchPutComment(collectionId, newText).then(
+      () => setEditMode(false),
+      fetchComment(),
+    );
+  };
 
   return (
     <>
@@ -46,9 +50,7 @@ function Comments({ comment, userdata }: Props) {
               <input defaultValue={text} onChange={inputHandler} />
               <AiOutlineCheck
                 onClick={() => {
-                  fetchPutComment(collectionId, newText).then(() =>
-                    setEditMode(false),
-                  );
+                  putHandler(collectionId, newText);
                 }}
               />
               <MdCancelPresentation onClick={() => setEditMode(false)} />
@@ -82,4 +84,4 @@ function Comments({ comment, userdata }: Props) {
   );
 }
 
-export default Comments;
+export default Comment;

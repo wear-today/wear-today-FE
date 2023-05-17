@@ -20,7 +20,6 @@ export async function fetchPostComment(data:CommentForm) {
 
 //DELETE
 export async function fetchDeleteComment(collectionId:string) {
-
     const data =  doc(db, "comments", collectionId)
     try{
         await deleteDoc(data)
@@ -32,7 +31,6 @@ export async function fetchDeleteComment(collectionId:string) {
 //PUT
 export async function fetchPutComment(collectionId:string, newtext:string) {
     const data = doc(db, "comments", collectionId )
-
     try{
         await updateDoc(data, {text:newtext})
     } catch(e) {
