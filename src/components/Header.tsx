@@ -1,10 +1,29 @@
-function Header() {
+import { auth } from "../firebase";
+import { useNavigate } from "react-router-dom";
+function Header({isLoggedIn, userdata}) {
+  const navigate = useNavigate();
+
+  const Logout = () => {
+        
+    auth.signOut()
+    navigate("/")
+    alert('로그아웃 되었습니다')
+  };
   return (
     <header className="h-18 w-full flex gap-2 p-4 border-b-2 border-blue-300">
       <h2 className="text-xl font-bold pl-20">
         오늘, 당신의 옷차림은 어떤가요?
       </h2>
-      <button className="flex w-12 h-8 text-sm p-1 ml-4">login</button>
+      {!isLoggedIn ?
+        <button  className="flex w-12 h-8 text-sm p-1 ml-4">
+        <a href='/Login' >login</a>
+        </button>
+      :
+      <button  className="flex w-12 h-8 text-sm p-1 ml-4">
+        <a  onClick={Logout} >Logout</a>
+      </button>
+      }
+    
     </header>
   );
 }
