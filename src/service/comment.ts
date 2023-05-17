@@ -1,7 +1,7 @@
-import { getDatabase, ref, child, get  } from "firebase/database";
 import { db } from "../firebase";
-import { addDoc, collection, deleteDoc, doc, getDocs, onSnapshot, query } from "firebase/firestore";
+import { addDoc, collection,  doc, getDocs, onSnapshot, query } from "firebase/firestore";
 import { CommentForm } from "../types/comment";
+import { deleteDoc } from "firebase/firestore";
 
 
 
@@ -19,8 +19,16 @@ export async function fetchPostComment(data:CommentForm) {
 }
 
 //DELETE
-export async function fetchDeleteComment(postId:number) {
-    const data =  doc(db, "comments", "postId")
-    const res =await deleteDoc(data)
-    return res;
+export async function fetchDeleteComment(postId:string) {
+
+    const data =  doc(db, "comments", postId)
+    console.log(data)
+    try{
+        const res = await deleteDoc(data)
+        
+        console.log("try",res);
+    } catch(e){
+        console.error("에러")
+    }
+
 }

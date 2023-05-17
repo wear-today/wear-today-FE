@@ -1,5 +1,7 @@
+import { fetchDeleteComment } from '../../service/comment';
 import { CommentForm } from '../../types/comment';
 import { User } from '../../types/user';
+import { BsTrash, BsPen } from 'react-icons/bs';
 
 type Props = {
   comment: CommentForm;
@@ -7,16 +9,18 @@ type Props = {
 };
 
 function Comments({ comment, userdata }: Props) {
-  const { name, postId, region, text, id } = comment;
-  console.log('댓글유저----->', userdata.uid);
-  console.log('댓글----->', comment.postId);
-  console.log(userdata.uid === postId);
+  const { name, postId, region, text, id, collectionId } = comment;
+  const deleteHandler = async (collectionId: string) => {
+    if (confirm('해당 글을 삭제하시겠습니까?')) {
+      fetchDeleteComment(collectionId);
+    }
+  };
+  console.log(comment);
 
   return (
     <>
       {userdata.uid === postId ? (
         <article className="flex flex-row gap-1 justify-start">
-          <div>내가쓴글이당</div>
           <div className="bg-neutral-200 rounded-xl px-2 py-[1px]">
             <p className="text-sm font-bold">{region}</p>
           </div>
@@ -24,6 +28,14 @@ function Comments({ comment, userdata }: Props) {
             {name ? name : '익명의 유저'}
           </p>
           <p className="text-md ml-1">{text}</p>
+          <div className="flex flex-row gap-2 ml-2 mt-1 w-8">
+            <BsPen />
+            <BsTrash
+              onClick={() => {
+                deleteHandler(collectionId);
+              }}
+            />
+          </div>
         </article>
       ) : (
         <article className="flex flex-row gap-1 justify-start">

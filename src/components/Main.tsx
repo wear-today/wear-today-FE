@@ -3,8 +3,8 @@ import AllComment from './comments/AllComments';
 import CreateComments from './comments/CreateComment';
 import WeatherData from './WeatherData';
 import Searchbox from './comments/Searchbox';
-import { useState } from 'react';
-import { CommentForm } from '../types/comment';
+import { useEffect, useState } from 'react';
+import { CommentData, CommentForm } from '../types/comment';
 import { User } from '../types/user';
 
 function Main({
@@ -14,8 +14,10 @@ function Main({
   isLoggedIn: boolean;
   userdata: User;
 }) {
-  const [comments, setComments] = useState<CommentForm[]>([]);
-  console.log(userdata);
+  const [comments, setComments] = useState<CommentData[]>([]);
+
+  useEffect(() => {}, [comments]);
+
   return (
     <main className="bg-blue-50 h-screen w-[30rem]">
       <Header isLoggedIn={isLoggedIn} userdata={userdata} />

@@ -1,4 +1,5 @@
 export type CommentForm = {
+    collectionId: string;
     id : string;
     name: string;
     region: string;

@@ -18,7 +18,7 @@ function AllComment({ setComments, comments, userdata }: AllCommentProps) {
   const fetchComment = async () => {
     await getDocs(collection(db, 'comments')).then((snap) => {
       const newData: any = snap.docs.map((doc) => ({
-        id: doc.id,
+        collectionId: doc.id,
         ...doc.data().data,
       }));
       setComments(newData);
