@@ -1,34 +1,36 @@
 import { useEffect, useState } from 'react';
-import { collection, getDocs} from 'firebase/firestore';
-import { db } from '../../firebase';
-import { CommentForm } from '../../service/comment';
-import Comments from './Comment';
+import { collection, getDocs } from 'firebase/firestore';
+import Comment from './Comment';
 import Spinner from '../Spinner';
+import { User } from '../../types/user';
+import { CommentForm } from '../../types/comment';
 
-function AllComment({setComments,comments}) {
- 
-  const [loading, setLoading] = useState(true);
+interface AllCommentProps {
+  setComments: React.Dispatch<React.SetStateAction<CommentForm[]>>;
+  comments: CommentForm[];
+  userdata: User;
+  loading: boolean;
+  fetchComment: any;
+}
 
-  const fetchComment = async () => {
-    await getDocs(collection(db, 'comments')).then((snap) => {
-      const newData: any = snap.docs.map((doc) => ({id:doc.id, ...doc.data().data }));
-      setComments(newData);
-      setLoading(false);
-    });
-  };
-console.log(comments,'comments')
-  useEffect(() => {
-    fetchComment();
-  }, []);
-  
+function AllComment({
+  comments,
+  userdata,
+  loading,
+  fetchComment,
+}: AllCommentProps) {
   return (
     <ul className="flex flex-col w-full pl-8 mt-4 gap-3">
       {loading ? (
         <Spinner />
       ) : (
         comments?.map((comment: CommentForm) => (
-          <li key={comment.id}>
-            <Comments comment={comment} />
+          <li key={`${comment.collectionId} 의 ${comment.text}`}>
+            <Comment
+              comment={comment}
+              userdata={userdata}
+              fetchComment={fetchComment}
+            />
           </li>
         ))
       )}

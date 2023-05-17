@@ -1,14 +1,8 @@
-import { getDatabase, ref, child, get  } from "firebase/database";
 import { db } from "../firebase";
-import { addDoc, collection, deleteDoc, doc, getDocs, onSnapshot, query } from "firebase/firestore";
+import { addDoc, collection,  doc, getDocs, onSnapshot, query, updateDoc } from "firebase/firestore";
+import { CommentForm } from "../types/comment";
+import { deleteDoc } from "firebase/firestore";
 
-export type CommentForm = {
-        id : number;
-        name: string;
-        region: string;
-        text: string;
-        postId: number;
-    }
 
 
 //GET
@@ -19,14 +13,27 @@ export async function fetchCommentData() {
     })
 }
 //POST
-export async function fetchPostComment(data:comment) {
-    const req = await addDoc(collection(db, "comments"), {data})
+export async function fetchPostComment(data:CommentForm) {
+    const req = await addDoc(collection(db, "comments"), data)
     return req
 }
 
 //DELETE
-export async function fetchDeleteComment(postId:number) {
-    const data =  doc(db, "comments", "postId")
-    const res =await deleteDoc(data)
-    return res;
+export async function fetchDeleteComment(collectionId:string) {
+    const data =  doc(db, "comments", collectionId)
+    try{
+        await deleteDoc(data)
+    } catch(e){
+        console.error(e)
+    }
+}
+
+//PUT
+export async function fetchPutComment(collectionId:string, newtext:string) {
+    const data = doc(db, "comments", collectionId )
+    try{
+        await updateDoc(data, {text:newtext})
+    } catch(e) {
+        console.error(e)
+    }
 }
