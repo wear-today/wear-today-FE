@@ -1,14 +1,8 @@
 import { getDatabase, ref, child, get  } from "firebase/database";
 import { db } from "../firebase";
 import { addDoc, collection, deleteDoc, doc, getDocs, onSnapshot, query } from "firebase/firestore";
+import { CommentForm } from "../types/comment";
 
-export type CommentForm = {
-        id : number;
-        name: string;
-        region: string;
-        text: string;
-        postId: number;
-    }
 
 
 //GET
@@ -19,7 +13,7 @@ export async function fetchCommentData() {
     })
 }
 //POST
-export async function fetchPostComment(data:comment) {
+export async function fetchPostComment(data:CommentForm) {
     const req = await addDoc(collection(db, "comments"), {data})
     return req
 }
