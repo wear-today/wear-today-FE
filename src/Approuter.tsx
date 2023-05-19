@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Main from './components/Main';
 import Login from './components/Login';
 import Join from './components/Join';
+import Profile from './components/Profile';
 import { User } from './types/user';
 
 interface Props {
@@ -9,7 +10,7 @@ interface Props {
   userdata: User;
 }
 
-const Approuter = ({ isLoggedIn, userdata }: Props) => {
+const Approuter = ({ isLoggedIn, userdata, refreshUser }: Props) => {
   return (
     <BrowserRouter>
       <Routes>
@@ -19,6 +20,7 @@ const Approuter = ({ isLoggedIn, userdata }: Props) => {
         />
         <Route path="/Login" element={<Login />} />
         <Route path="/Join" element={<Join />} />
+        <Route path="/Profile" element={<Profile refreshUser={refreshUser} userdata={userdata} /> }/>
       </Routes>
     </BrowserRouter>
   );

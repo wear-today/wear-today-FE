@@ -7,9 +7,11 @@ import { User } from './types/user';
 
 function App() {
   const [init, setInit] = useState(false);
+  
+  
   const [userdata, setUserdata] = useState<User | null>(null);
   useEffect(() => {
-    auth.onAuthStateChanged((user: User) => {
+    auth.onAuthStateChanged((user : User) => {
       if (user) {
         setUserdata({
           displayName: user.displayName,
@@ -24,21 +26,24 @@ function App() {
       setInit(true);
     });
   }, []);
+  console.log(userdata);
 
-  // const refreshUser = () => {
-  //   const user = auth.currentUser;
-  //   setUserdata({
-  //     displayName: user.displayName,
-  //     uid: user.uid,
-  //     updateProfile: (args) =>
-  //       updateProfile(user, { displayName: user.displayName }),
-  //   });
-  // };
+  const refreshUser = () => {
+    const user = auth.currentUser;
+    setUserdata({
+      displayName: user.displayName,
+      uid: user.uid,
+      updateProfile: (args) =>
+        updateProfile(user, { displayName: user.displayName }),
+    });
+  };
+
+ 
 
   return (
     <div className="App">
       {init ? (
-        <Approuter isLoggedIn={Boolean(userdata)} userdata={userdata} />
+        <Approuter userdata={userdata} isLoggedIn={Boolean(userdata)} refreshUser={refreshUser} />
       ) : (
         'Initializing....'
       )}
