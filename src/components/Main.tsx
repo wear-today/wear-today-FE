@@ -14,7 +14,7 @@ type Props = {
   userdata: User;
 };
 
-function Main({ isLoggedIn, userdata }: Props) {
+function Main() {
   const [comments, setComments] = useState<CommentForm[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -36,17 +36,16 @@ function Main({ isLoggedIn, userdata }: Props) {
 
   return (
     <main className="bg-blue-50 h-screen w-[30rem]">
-      <Header isLoggedIn={isLoggedIn} userdata={userdata} />
+      <Header />
       <section>
         <Searchbox comments={comments} setComments={setComments} />
         <AllComment
           comments={comments}
           setComments={setComments}
-          userdata={userdata}
           loading={loading}
           fetchComment={fetchComment}
         />
-        <CreateComments userdata={userdata} fetchComment={fetchComment} />
+        <CreateComments fetchComment={fetchComment} />
         {/* <WeatherData /> */}
       </section>
     </main>

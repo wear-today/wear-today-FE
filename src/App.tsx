@@ -4,14 +4,15 @@ import Approuter from './Approuter';
 import { updateProfile } from '@firebase/auth';
 import { auth } from './firebase';
 import { User } from './types/user';
+import Spinner from './components/Spinner';
+import { UserContext } from './context/userContext';
 
 function App() {
   const [init, setInit] = useState(false);
-  
-  
+
   const [userdata, setUserdata] = useState<User | null>(null);
   useEffect(() => {
-    auth.onAuthStateChanged((user : User) => {
+    auth.onAuthStateChanged((user: User) => {
       if (user) {
         setUserdata({
           displayName: user.displayName,
@@ -26,7 +27,6 @@ function App() {
       setInit(true);
     });
   }, []);
-  console.log(userdata);
 
   const refreshUser = () => {
     const user = auth.currentUser;
@@ -38,15 +38,11 @@ function App() {
     });
   };
 
- 
-
   return (
     <div className="App">
-      {init ? (
-        <Approuter userdata={userdata} isLoggedIn={Boolean(userdata)} refreshUser={refreshUser} />
-      ) : (
-        'Initializing....'
-      )}
+      <UserContext.Provider value={{ userdata, refreshUser }}>
+        {init ? <Approuter /> : <Spinner />}
+      </UserContext.Provider>
     </div>
   );
 }
