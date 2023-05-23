@@ -37,7 +37,7 @@ function Comment({ comment, userdata, fetchComment }: Props) {
 
   return (
     <>
-      {userdata.uid === postId ? (
+      {userdata&&userdata.collectionId === postId ? (
         <article className="flex flex-row gap-1 justify-start">
           <div className="bg-neutral-200 rounded-xl px-2 py-[1px]">
             <p className="text-sm font-bold">{region}</p>

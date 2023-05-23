@@ -9,6 +9,10 @@ function Header({isLoggedIn, userdata}) {
     navigate("/")
     alert('로그아웃 되었습니다')
   };
+  console.log(isLoggedIn);
+  console.log(userdata);
+  
+  
   return (
     <header className="h-18 w-full flex gap-2 p-4 border-b-2 border-blue-300">
       <h2 className="text-xl font-bold pl-20">
@@ -19,9 +23,12 @@ function Header({isLoggedIn, userdata}) {
         <a href='/Login' >login</a>
         </button>
       :
+      <>
       <button  className="flex w-12 h-8 text-sm p-1 ml-4">
         <a  onClick={Logout} >Logout</a>
       </button>
+      <button className="flex w-12 h-8 text-sm p-1 ml-4"><a href='/Profile'>profile</a></button>
+      </>
       }
     
     </header>
