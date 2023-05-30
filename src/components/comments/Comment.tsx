@@ -1,19 +1,20 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 import { fetchDeleteComment, fetchPutComment } from '../../service/comment';
 import { CommentForm } from '../../types/comment';
-import { User } from '../../types/user';
 import { BsTrash, BsPen } from 'react-icons/bs';
 import { AiOutlineCheck } from 'react-icons/ai';
 import { MdCancelPresentation } from 'react-icons/md';
+import { UserContext } from '../../context/userContext';
 
 type Props = {
   comment: CommentForm;
-  userdata: User;
   fetchComment: any;
 };
 
-function Comment({ comment, userdata, fetchComment }: Props) {
+function Comment({ comment, fetchComment }: Props) {
   const { name, postId, region, text, id, collectionId } = comment;
+
+  const { userdata } = useContext(UserContext);
 
   const [editMode, setEditMode] = useState<boolean>(false);
   const [newText, setNewText] = useState('');
@@ -37,7 +38,7 @@ function Comment({ comment, userdata, fetchComment }: Props) {
 
   return (
     <>
-      {userdata&&userdata.collectionId === postId ? (
+      {userdata && userdata.collectionId === postId ? (
         <article className="flex flex-row gap-1 justify-start">
           <div className="bg-neutral-200 rounded-xl px-2 py-[1px]">
             <p className="text-sm font-bold">{region}</p>
