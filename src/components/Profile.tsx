@@ -21,26 +21,7 @@ function Profile({ memo }) {
     } = event;
     setNewDisplayName(value);
   };
-  // const getPostings = async () => {
-  //     const q = query(
-  //       collection(dbService, "users")
-  //     );
-  //     onSnapshot(q, (querySnapshot) => {
-  //       const docData = querySnapshot.docs.map((doc) => {
-  //         return {
-  //           id: doc.id,
-  //           ...doc.data(),
-  //         };
-  //       });
-  //       console.log(docData,'docdata')
-  //       if(docData != undefined){
-  //       setMemo(docData.filter(memos => memos.email == String(userdata.email)));
-  //     }
-  //     });
-  //   };
-  //   useEffect(()=>{
-  //     getPostings()
-  //     },[])
+
   console.log(userdata.displayName, '!!!!', '비교', newDisplayName, '!!!');
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -60,39 +41,7 @@ function Profile({ memo }) {
     }
   };
 
-  console.log(memo, 'memo');
-
-  // const getMywrites = async() => {
-  //     const artmemos = query(collection(dbService,"artmemos"),where("creatorId", "==", userdata.uid));
-  //     const artquery = getDocs(artmemos)
-  //     artquery.forEach((doc)=>{
-  //         console.log(doc.id, " => ", doc.data())
-  //     })
-  // };
-
-  //     useEffect(()=>{
-  //         try{
-  //             const getmemodata = collection(dbService,"artmemos")
-  //             //const a = query(getmemodata)
-  //             const data = await getDocs(getmemodata)
-  //             const newData = data.docs.map(doc => ({
-  //                 ...doc.data()
-  //               }));
-  //             setMemo(newData)
-  //         } catch(e){
-  //             console.error('에러낫슈',e);
-  //             return e.response
-  //         }
-
-  //         //console.log(memodata)
-  //         // setMemo(memodata)
-  //     },[])
-  //    console.log(memo)
-
-  //,where("creatorId", "==", userdata.uid)
-  //,orderBy('createdAt','desc')
-
-  //const newData = data.docs.map(doc => ({ ...doc.data()}))
+  // console.log(memo, 'memo');
 
   return (
     <>
